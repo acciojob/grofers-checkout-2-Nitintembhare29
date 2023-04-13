@@ -1,13 +1,17 @@
 //your code here
- let prices = document.querySelectorAll('[data-ns-test="prices"]');
-    let total = 0;
-    for (let price of prices) {
-        total += parseFloat(price.textContent);
-    }
+// Get all the elements with data-ns-test="prices"
+const prices = document.querySelectorAll('[data-ns-test="prices"]');
 
-    let table = document.getElementById('groceryList');
-    let newRow = table.insertRow();
-    let newCell = newRow.insertCell();
-    newCell.setAttribute('colspan', '2');
-    newCell.setAttribute('data-ns-test', 'grandTotal');
-    newCell.textContent = `Total: $${total}`;
+// Initialize the total price to 0
+let totalPrice = 0;
+
+// Loop through each element and add its price to the total price
+prices.forEach(price => {
+  totalPrice += parseFloat(price.innerText);
+});
+
+// Get the element with data-ns-test="grandTotal"
+const grandTotal = document.querySelector('[data-ns-test="grandTotal"]');
+
+// Set its innerText to the total price
+grandTotal.innerText = totalPrice.toFixed(2);
