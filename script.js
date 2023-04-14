@@ -1,17 +1,29 @@
 //your code here
 // Get all the elements with data-ns-test="prices"
-const prices = document.querySelectorAll('[data-ns-test="prices"]');
+const getSumBtn = document.createElement("button");
+getSumBtn.append("Get Total Price");
+document.body.appendChild(getSumBtn);
+const getSum = () => {
+  getSumBtn.disabled = true;
+  const prices = document.querySelectorAll(".price");
+  let totalPrice = 0;
+  prices.forEach((price) => {
+    const value = parseInt(price.textContent);
+    if (!Number.isNaN(value)) {
+      totalPrice += value;
+    }
+  });
+  const totalPriceRow = document.createElement("tr");
+  totalPriceRow.id = "ans";
+  const totalPriceData = document.createElement("td");
+  const totalPriceAns = document.createElement("td");
+  totalPriceRow.appendChild(totalPriceData);
+  totalPriceRow.appendChild(totalPriceAns);
+  const data = `Total Price (in Rs): `;
+  totalPriceData.append(data);
+  totalPriceAns.append(`${totalPrice}`);
+  const table = document.querySelector("tbody");
+  table.appendChild(totalPriceRow);
+};
 
-// Initialize the total price to 0
-let totalPrice = 0;
-
-// Loop through each element and add its price to the total price
-prices.forEach(price => {
-  totalPrice += parseFloat(price.innerText);
-});
-
-// Get the element with data-ns-test="grandTotal"
-const grandTotal = document.querySelector('[data-ns-test="grandTotal"]');
-
-// Set its innerText to the total price
-grandTotal.innerText = totalPrice.toFixed(2);
+getSumBtn.addEventListener("click", getSum);
